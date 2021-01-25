@@ -3,7 +3,7 @@ const {
   create, getAll, getById, editOne, searchByTag, searchByTitle , deleteBlog , getMyProfile
 } = require('../controllers/blog');
 const router = express.Router();
-/*
+
 const multer = require('multer') ;
 const path = require('path');
 const storage = multer.diskStorage({
@@ -26,8 +26,8 @@ router.post('/',upload.single('photo'), async( req ,res ,next)=>{
     next(e);
   }
 });
-*/
-router.post('/',async( req ,res ,next)=>{
+
+/*router.post('/',async( req ,res ,next)=>{
   const { body, user: { id } } = req;
   try {
     const blog = await create({ ...body ,author: id });
@@ -35,7 +35,7 @@ router.post('/',async( req ,res ,next)=>{
   } catch (e) {
     next(e);
   }
-});
+});*/
 
 
 router.get('/', async (req, res, next) => {
