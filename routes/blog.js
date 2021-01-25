@@ -1,7 +1,8 @@
 const express = require('express');
 const multer = require('multer') ;
 const path = require('path');
-
+const upload = multer({storage : storage});
+const router = express.Router();
 const {
   create, getAll, getById, editOne, searchByTag, searchByTitle , deleteBlog , getMyProfile
 } = require('../controllers/blog');
@@ -14,11 +15,8 @@ const storage = multer.diskStorage({
     cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
-const upload = multer({storage : storage});
 
-const router = express.Router();
-
-router.post('/add',upload.single('photo'),async( req ,res ,next)=>{
+router.post('/',upload.single('photo'),async( req ,res ,next)=>{
   const { body, user: { id } } = req;
   const _file = req.file.filename ;
   try {
@@ -28,7 +26,7 @@ router.post('/add',upload.single('photo'),async( req ,res ,next)=>{
     next(e);
   }
 });
-
+/*
 router.post('/',async( req ,res ,next)=>{
   const { body, user: { id } } = req;
   try {
@@ -38,8 +36,7 @@ router.post('/',async( req ,res ,next)=>{
     next(e);
   }
 });
-
-
+*/
 
 router.get('/', async (req, res, next) => {
     const { user: { id } } =  req ;
