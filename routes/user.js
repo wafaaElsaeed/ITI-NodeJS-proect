@@ -35,8 +35,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.patch('/:id', async (req, res, next) => {
-  const { params: { id }, body } = req;
+router.patch('/edit',authMiddleware, async (req, res, next) => {
+  const {  user:{id}, body } = req;
   try {
     const users = await editOne(id, body);
     res.json(users);
@@ -65,15 +65,5 @@ router.post('/unfollow/:ID' , authMiddleware, async (req,res,next)=> {
   }
 });
 
-
-/*router.post('/follow/:ID',authMiddleware,async(req,res,next)=>{​​​​
-    const {​​​​user: {​​​​ id } ​​​​, params: {​​​​ ID }​​​​ }​​​​ = req;
-    try {​​​​ 
-      const userfollowID = await addfollowID(id,ID) ;
-      res.json(userfollowID) ;
-    }​​​​ catch (e) {​​​​
-      next(e);
-    }​​​​
-  }​​​​);*/
 
 module.exports = router;
