@@ -11,24 +11,35 @@ const storage = multer.diskStorage({
     cb(null, 'images')
   },
   filename: function(req ,file ,cb){
-    cb(null, file.originalname+ '-' + Date.now() + path.extname(file.originalname));
+    cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
 const upload = multer({storage : storage});
 
-
 const router = express.Router();
 
-router.post('/',upload.single('photo'),async( req ,res ,next)=>{
-    const { body, user: { id } } = req;
-    const _file = req.file.filename ;
-    try {
-      const blog = await create({ ...body,photo:_file ,author: id });
-      res.json(blog);
-    } catch (e) {
-      next(e);
-    }
+router.post('/add',upload.single('photo'),async( req ,res ,next)=>{
+  const { body, user: { id } } = req;
+  const _file = req.file.filename ;
+  try {
+    const blog = await create({ ...body,photo:_file ,author: id });
+    res.json(blog);
+  } catch (e) {
+    next(e);
+  }
 });
+
+router.post('/',async( req ,res ,next)=>{
+  const { body, user: { id } } = req;
+  try {
+    const blog = await create({ ...body ,author: id });
+    res.json(blog);
+  } catch (e) {
+    next(e);
+  }
+});
+
+
 
 router.get('/', async (req, res, next) => {
     const { user: { id } } =  req ;
