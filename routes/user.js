@@ -35,10 +35,10 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.patch('/edit',authMiddleware, async (req, res, next) => {
-  const {  user:{id}, body } = req;
+router.patch('/' , authMiddleware , async (req, res, next) => {
+  const { user:{id} , body } = req;
   try {
-    const users = await editOne(id, body);
+    const users = await editOne(id,body);
     res.json(users);
   } catch (e) {
     next(e);

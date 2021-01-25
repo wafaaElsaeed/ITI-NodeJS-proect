@@ -27,7 +27,7 @@ const login = async ({ username, password }) => {
 
 const getAll = () => User.find({}).exec();
 
-const editOne = (id, data) => User.findByIdAndUpdate(id, data, { new: true }).exec();
+const editOne = (id,data) => User.findByIdAndUpdate(id,data, { new: true }).exec();
 
 const addfollowID = async(id ,targetID)=>{
   const loggedUser = await User.findById(id).exec();
