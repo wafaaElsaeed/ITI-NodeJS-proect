@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
-//const {getAll} = require('./controllers/blog');
+const {getAll} = require('./controllers/blog');
 const app = express();
 const { MONGODB_URI } = process.env;
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true });
@@ -10,14 +10,14 @@ mongoose.connect(MONGODB_URI, { useUnifiedTopology: true });
 app.use(express.json());
 
 // for anyone 
-/* app.get('/', async (req, res, next) => {
+ app.get('/', async (req, res, next) => {
   try {
     const blogs = await getAll();
     res.json(blogs);
   } catch (e) {
     next(e);
   }
-}); */
+}); 
 
 // for registered persons
 app.use('/', routes);
