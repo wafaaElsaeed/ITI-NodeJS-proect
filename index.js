@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
-const {getAll} = require('./controllers/blog');
+//const {getAll} = require('./controllers/blog');
 const app = express();
 const { MONGODB_URI } = process.env;
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true });
