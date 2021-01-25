@@ -1,6 +1,6 @@
 const express = require('express');
 const {
-  create, getAll, getById, editOne, searchByTag, searchByTitle , deleteBlog , getMyProfile
+  create, getById, editOne, searchByTag, searchByTitle , deleteBlog , getMyProfile
 } = require('../controllers/blog');
 const router = express.Router();
 
@@ -36,16 +36,6 @@ router.post('/',async( req ,res ,next)=>{
     next(e);
   }
 });
-
-router.get('/', async (req, res, next) => {
-    const { user: { id } } =  req ;
-    try {
-      const blogs = await getAll({ userId: id });
-      res.json(blogs);
-    } catch (e) {
-      next(e);
-    }
-  });
   
   router.get('/myprofile', async (req, res, next) => {
     const {user: {id}} = req;
