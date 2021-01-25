@@ -1,26 +1,25 @@
 const express = require('express');
-const multer = require('multer') ;
-const path = require('path');
-const upload = multer({storage : storage});
-const router = express.Router();
 const {
   create, getAll, getById, editOne, searchByTag, searchByTitle , deleteBlog , getMyProfile
 } = require('../controllers/blog');
-
+const router = express.Router();
+const multer = require('multer') ;
+const path = require('path');
 const storage = multer.diskStorage({
-  destination: function(req ,file ,cb){
-    cb(null, 'images')
-  },
-  filename: function(req ,file ,cb){
-    cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
-  }
+    destination: function(req ,file ,cb){
+      cb(null, 'images/')
+    },
+    filename: function(req ,file ,cb){
+      cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
+    }
 });
+const upload = multer({storage : storage});
 
-router.post('/',upload.single('photo'),async( req ,res ,next)=>{
+router.post('/',upload.single('photo'), async( req ,res ,next)=>{
   const { body, user: { id } } = req;
   const _file = req.file.filename ;
   try {
-    const blog = await create({ ...body ,photo: _file ,author: id });
+    const blog = await create({...body,photo:_file,author: id });
     res.json(blog);
   } catch (e) {
     next(e);
